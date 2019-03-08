@@ -60,6 +60,34 @@ REFERENCES tb_Produto(cd_Produto);
 INSERT INTO tb_Vendas VALUES(5,3.2);--N roda, pois n existe
 INSERT INTO tb_Vendas VALUES(2,6);--Precisa ser um valor q exista na coluna cod_prod
 
+drop table tb_Vendas;--Apagando a tabela tb_Vendas;
+--É necessário recriar a tabela vendas com os dados código de venda,cliente e valor total.Após isso
+--deve-se criar outra tabela produto-vendas que relacionem os dados de produto com os de venda
+--da seguitne forma: criar atributos de código_produto_venda,código do produto, quantidade
+create table tb_Vendas(
+	cdVenda int Primary KEY IDENTITY(1,1),
+	cd_Cliente int NOT NULL FOREIGN KEY REFERENCES tb_Clientes(cd_Cliente),
+	dtVenda DATETIME NOT NULL
+	);
+create table tb_ProdutoVenda(
+	cdProdutoVenda int Primary Key IDENTITY(1,1),
+	cdVenda int FOREIGN KEY REFERENCES tb_Vendas(cdVenda) NOT NULL,
+	cd_Produto int FOREIGN KEY REFERENCES tb_Produtos(cd_Produto) NOT NULL,
+	qtProduto int NOT NULL 
+);
+--INSERT INTO tb_ProdutoVenda VALUES(1,1,3);--n dá certo pois preciso de dados de vendas na própria tabela
+SELECT * FROM tb_Vendas;--Não tem nada como dito acima
+SELECT * FROM tb_Clientes;--Tb n tem clientes por isso precisamos cria-lo antes de tudo
+SELECt * FROM tb_ProdutoVenda;
+
+--INSERT INTO tb_Clientes VALUES('Paula Suina','1980-05-01','M','Rua dos tabarindos, 400','Campinas','São Paulo','1123918420','11992800234');
+
+--Agora um insert da venda
+--INSERT INTO tb_Vendas VALUES(1,GETDATE());--GETDATE pega a data e hora atual
+--Agora um insert dentro da tabela tb_produtoVenda
+--INSERT INTO tb_ProdutoVenda VALUES(1,1,3);--Agora funciona
+
+
 
 
 
